@@ -1,8 +1,8 @@
 // test-io-server.js
 
 // Create the socket server
-const PORT = process.env.PORT || 3000;
-var socket = require('socket.io')(PORT);
+var port = process.env.PORT || 3000;
+var socket = require('socket.io')(port);
 socket.on('connection', function(client) {
 
     // Listen for test and disconnect events
