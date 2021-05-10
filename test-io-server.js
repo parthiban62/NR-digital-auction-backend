@@ -1,7 +1,7 @@
 // test-io-server.js
 
 // Create the socket server
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 var socket = require('socket.io')(PORT);
 socket.on('connection', function(client) {
 
