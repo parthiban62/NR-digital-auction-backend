@@ -1,0 +1,62 @@
+<!-- test-io-client.html -->
+<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+<script>
+
+    function init()
+    {
+        output = document.getElementById("output");
+        testSocket();
+    }
+
+    function testSocket()
+    {
+        var socket = io.connect('http://localhost:3000/');
+        socket.on('test', onMessage );
+        socket.on('connect', onConnect );
+        socket.on('disconnect', onDisconnect );
+        socket.on('connect_error', onError );
+        socket.on('reconnect_error', onError );
+
+        function onConnect(evt)
+        {
+            writeToScreen("CONNECTED");
+            doSend("Allo?");
+        }
+
+        function onDisconnect(evt)
+        {
+            writeToScreen("DISCONNECTED");
+        }
+
+        function onMessage(data)
+        {
+            writeToScreen('<span style="color: blue;">RESPONSE: ' + data+'</span>');
+            socket.close();
+        }
+
+        function onError(message)
+        {
+            writeToScreen('<span style="color: red;">ERROR:</span> ' + message);
+        }
+
+        function doSend(message)
+        {
+            writeToScreen("SENT: " + message);
+            socket.emit('test', message);
+        }
+
+        function writeToScreen(message)
+        {
+            var pre = document.createElement("p");
+            pre.style.wordWrap = "break-word";
+            pre.innerHTML = message;
+            output.appendChild(pre);
+        }
+    }
+
+    window.addEventListener("load", init, false);
+</script>
+
+<h2>Socket.io Test</h2>
+
+<div id="output"></div>

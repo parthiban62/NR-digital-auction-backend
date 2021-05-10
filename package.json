@@ -1,0 +1,15 @@
+{
+  "name": "test-socket-io",
+  "version": "1.0.0",
+  "description": "Simple Socket.io client and server test",
+  "main": "test-io-server.js",
+  "scripts": {
+    "start": "node test-io-server"
+  },
+  "dependencies": {
+    "socket.io": "^1.5.0"
+  },
+  "author": "Cliff Hall",
+  "license": "MIT",
+  "homepage": "https://github.com/cliffhall/"
+}
