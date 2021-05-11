@@ -1,62 +1,74 @@
 <!-- test-io-client.html -->
 <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js" integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ==" crossorigin="anonymous"></script>
 <script>
-
+    
+    var socket;
     function init()
     {
         output = document.getElementById("output");
-        testSocket();
-    }
-
-    function testSocket()
-    {
-        var socket = io.connect('http://localhost:3000/');
+        socket = io.connect('http://localhost:2000/');
+        //testSocket(socket);
         socket.on('test', onMessage );
         socket.on('connect', onConnect );
         socket.on('disconnect', onDisconnect );
         socket.on('connect_error', onError );
         socket.on('reconnect_error', onError );
 
-        function onConnect(evt)
+    }
+
+    function onConnect(evt)
         {
             writeToScreen("CONNECTED");
-            doSend("Allo?");
-        }
+            //doSend("{\"currentBid\":200,\"auctionId\":\"711d675d-397b-4b51-8eff-866f23696480\",\"biddings\":[{\"auctionId\":\"711d675d-397b-4b51-8eff-866f23696480\",\"userId\":\"1001\",\"userName\":\"danGregor\",\"bidAmount\":150,\"bidTime\":1622093800},{\"auctionId\":\"711d675d-397b-4b51-8eff-866f23696480\",\"userId\":\"1002\",\"userName\":\"debbyShaw\",\"bidAmount\":175,\"bidTime\":1622153800},{\"auctionId\":\"711d675d-397b-4b51-8eff-866f23696480\",\"userId\":\"1003\",\"userName\":\"aprilGreen\",\"bidAmount\":200,\"bidTime\":1622193800}]}");
+        }        
 
         function onDisconnect(evt)
         {
             writeToScreen("DISCONNECTED");
         }
 
-        function onMessage(data)
-        {
-            writeToScreen('<span style="color: blue;">RESPONSE: ' + data+'</span>');
-            socket.close();
-        }
-
-        function onError(message)
-        {
-            writeToScreen('<span style="color: red;">ERROR:</span> ' + message);
-        }
-
-        function doSend(message)
-        {
-            writeToScreen("SENT: " + message);
-            socket.emit('test', message);
-        }
-
-        function writeToScreen(message)
-        {
-            var pre = document.createElement("p");
-            pre.style.wordWrap = "break-word";
-            pre.innerHTML = message;
-            output.appendChild(pre);
-        }
+    function sendmessage()
+    {
+        writeToScreen("button click");
+        socket.emit('test', document.getElementById("text1").value);
     }
 
-    window.addEventListener("load", init, false);
+    function onMessage(data)
+    {
+        writeToScreen(data);
+        console.log(data);
+        //socket.close();
+        
+    }
+
+    function onError(message)
+    {
+        writeToScreen('<span style="color: red;">ERROR:</span> ' + message);
+    }
+
+    function doSend(message)
+    {
+        console.log("doSend");
+        writeToScreen("SENT: " + message);
+        socket.emit('test', message);
+    }
+
+    function writeToScreen(message)
+    {
+        var p = document.createElement('p');
+        p.innerHTML = message;
+        document.getElementById('output').appendChild(p);
+    }
+
+    
+    window.addEventListener("load",init,false);
 </script>
 
 <h2>Socket.io Test</h2>
+<form>
+    <input type="text" id="text1" />
+    <input type="submit" value="OK" onclick="sendmessage()" />  
+</form>
 
 <div id="output"></div>
