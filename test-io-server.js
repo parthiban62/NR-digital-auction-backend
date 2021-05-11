@@ -1,11 +1,13 @@
 // test-io-server.js
 const express = require('express');
 const app = express();
-const PORT = 2000;
+const PORT = process.env.PORT || 2000;
 
 const bodyParser = require('body-parser');
 const http = require('http').Server(app);
 const socket = require('socket.io')(http);
+
+app.set('port', PORT);
 
 // Express Middleware for serving static
 // files and parsing the request body
@@ -46,7 +48,7 @@ socket.on('connection', function(client) {
     }
 });
 
-http.listen(PORT, function () {
+http.listen(app.get('port'), function () {
     var datetime = new Date();
     var message = "Server runnning on Port:- "+ PORT +". Started at :- " + datetime;
     console.log(message);
