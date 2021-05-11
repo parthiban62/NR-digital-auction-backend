@@ -1,6 +1,8 @@
 // test-io-server.js
 const express = require('express');
+var cors = require('cors')
 const app = express();
+app.use(cors())
 const PORT = process.env.PORT || 2000;
 
 const bodyParser = require('body-parser');
