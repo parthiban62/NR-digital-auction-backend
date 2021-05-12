@@ -74,10 +74,23 @@ var routes = function () {
         
         try{
             var auctionData = "";
-            jsonBody = req.body;
-            id = jsonBody.auctionId;
+            var jsonBody = req.body;
+            var id = jsonBody.auctionId;
             var currentBid = jsonBody.currentBid;
-            console.log(id);
+            var currentBidEndTime = jsonBody.currentBidEndTime;
+            var currentBidTime = jsonBody.currentBidTime;
+            var difference
+            var StartTime = currentBidTime * 1000;
+            var EndTime = currentBidEndTime * 1000;
+            difference = EndTime - StartTime
+            var differenceinminutes = ((difference / 1000) / 60)
+            if(differenceinminutes < 5){
+                var date = new Date(EndTime);
+                date.setHours(date.getHours() + 1);
+                var newDate = Date.parse(date);
+                newDate = newDate/1000;
+                jsonBody.currentBidEndTime = newDate
+            }
             //Add bidding info to Biddings
             client.hmset("Biddings", id, JSON.stringify(jsonBody), function(err,result){
                 biddingsData = jsonBody;
@@ -86,7 +99,8 @@ var routes = function () {
             client.hmget("Auctions", id, function(err,auctions){ 
                 if(auctions){
                     auctionData = JSON.parse(auctions);
-                    auctionData.currentBid = currentBid;                                                               
+                    auctionData.currentBid = currentBid; 
+                    auctionData.endDateTime = jsonBody.currentBidEndTime;                                                              
                 }
                 //Update auctions with new Current Bid amount
                 client.hmset("Auctions", id, JSON.stringify(auctionData), function(err,result){
