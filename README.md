@@ -49,13 +49,15 @@ Setup Auction by category with slots i.e by specifying a start and end time. Dyn
 
 ## Installation
 Installation steps:
-* To run the front end app, please refer [this](https://reactnative.dev/docs/environment-setup)
+### Prerequisites
 
-* To run the backend App,<br> 
-    **1.** Install node js.<br>
-    **2.** npm install.<br>
-    **3.** npm build.<br>
-    **4.** npm start.<br>
+- Node JS
+- NPM
+
+* To run the App,<br> 
+    **1.** npm install.<br>
+    **2.** npm build.<br>
+    **3.** npm start.<br>
 
 
 ## App Details
