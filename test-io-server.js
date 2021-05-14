@@ -1,16 +1,10 @@
 // test-io-server.js
-const express = require("express");
 var cors = require("cors");
+const express = require("express");
 const app = express();
 app.use(cors());
 
-app.use(function (req, res, next) {
-  res.header('Access-Control-Allow-Origin', "*");
-  res.header('Access-Control-Allow-Headers', true);
-  res.header('Access-Control-Allow-Credentials', true);
-  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-  next();
-});
+app.options('*', cors());
 
 const PORT = process.env.PORT || 2000;
 
