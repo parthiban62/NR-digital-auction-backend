@@ -30,6 +30,9 @@ app.use("/api/bidding", biddingController);
 var settingsController = require("./Controller/SettingsController")();
 app.use("/api/settings", settingsController);
 
+var usersController = require("./Controller/UserController")();
+app.use("/api/users", usersController);
+
 //var io = require('io.io')(PORT);
 io.on("connection", function (socket) {
   socket.on("disconnect", onDisconnect);
