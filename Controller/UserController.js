@@ -16,12 +16,12 @@ var routes = function () {
     router.route('/')
         .get(function (req, res) {
             try{
-                client.hgetall("Users",function(err,biddings){ 
-                    if(biddings){
+                client.hgetall("Users",function(err,user){ 
+                    if(user){
                         return res.status(200).send({
                             error:false,
                             message : "Users data fetched",
-                            data : biddings
+                            data : user
                         })
                     }
                     else{
@@ -45,12 +45,12 @@ var routes = function () {
         .get(function (req, res) {
             try{
                 var id = req.params.id;
-                client.hmget("Users",id, function(err,biddings){ 
-                    if(biddings){
+                client.hmget("Users",id, function(err,user){ 
+                    if(user){
                         return res.status(200).send({
                             error:false,
                             message : "User data fetched",
-                            data : biddings
+                            data : user
                         })
                     }
                     else{
@@ -81,7 +81,20 @@ var routes = function () {
           
             //Add users info to Users
             client.hmset("Users", id, JSON.stringify(jsonBody), function(err,result){
-                biddingsData = jsonBody;
+                if(result == "OK"){
+                    return res.status(200).send({
+                        error:false,
+                        message : "Users data created",
+                        result : result
+                    })                         
+                }
+                else{
+                    return res.status(500).send({
+                        error:true,
+                        message:"Unable to add data",
+                        errordata : err
+                    })
+                }
             });
         }
         catch(error){
