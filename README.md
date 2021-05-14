@@ -47,60 +47,60 @@ The idea we present is to create a SaaS platform for conducting next generation 
 ### How the data is stored
 * We are using Redis Cloud Database equipped with RedisJSON module for storing data.
    * Auctions
-         * type - Redis Hash 
-         * used for storing auctions' data. 
-         * UUID generated from backend serves as the key.
-         * JSON data which includes keys - auctionId, auctionItemName, description,lotNo, quantity, buyersPremium, itemUnit, minBidAmount, bidIncrement, startDateTime, endDateTime, images, currentBid - servers as the value for Auctions hash.   
-         * NodeJS connects to Redis Cloud database. Frontend communicates with NodeJS backend through API calls.
-         * POST : /api/auctions
-         * request body has JSON data to be inserted to database.
-         * NodeJS uses 'redis' module to work with Redis Cloud. The redis client is created using the Redis credentials and hmset() equivalent of HMSET command is used to push data to Redis database.       
+     * type - Redis Hash 
+     * used for storing auctions' data. 
+     * UUID generated from backend serves as the key.
+     * JSON data which includes keys - auctionId, auctionItemName, description,lotNo, quantity, buyersPremium, itemUnit, minBidAmount, bidIncrement, startDateTime, endDateTime, images, currentBid - servers as the value for Auctions hash.   
+     * NodeJS connects to Redis Cloud database. Frontend communicates with NodeJS backend through API calls.
+     * POST : /api/auctions
+     * request body has JSON data to be inserted to database.
+     * NodeJS uses 'redis' module to work with Redis Cloud. The redis client is created using the Redis credentials and hmset() equivalent of HMSET command is used to push data to Redis database.       
    * Biddings
-         * type - Redis Hash  
-         * used for storing biddings placed on each auction item
-         * NodeJS connects to Redis Cloud database. Frontend communicates with NodeJS backend through API calls.
-         * POST : /api/bidding
-         * request body has JSON data to be inserted to database.
-         * AuctionId from request body servers as the key
-         * JSON data which includes keys - currentBid, currentBidTime, currentBidEndTime,  and biddings array (id, auctionId, userId, username, bidAmount, bidTime) - servers as value
-         * Bidding array has all the biddings placed for a particular auction item
-         * Based on current BidEndTime and BidTime - Auction end date is extended based on Dynamic Closing concept. 
-         * Current Dynamic closing logic - If a new bid is placed within the last 5 mins of auction end time, the end time is extended by 1 hour.
-         * This will be configurable in the SaaS solution.
-         * NodeJS uses 'redis' module to work with Redis Cloud. The redis client is created using the Redis credentials and hmset() equivalent of HMSET command is used to push data to Redis database.
+     * type - Redis Hash  
+     * used for storing biddings placed on each auction item
+     * NodeJS connects to Redis Cloud database. Frontend communicates with NodeJS backend through API calls.
+     * POST : /api/bidding
+     * request body has JSON data to be inserted to database.
+     * AuctionId from request body servers as the key
+     * JSON data which includes keys - currentBid, currentBidTime, currentBidEndTime,  and biddings array (id, auctionId, userId, username, bidAmount, bidTime) - servers as value
+     * Bidding array has all the biddings placed for a particular auction item
+     * Based on current BidEndTime and BidTime - Auction end date is extended based on Dynamic Closing concept. 
+     * Current Dynamic closing logic - If a new bid is placed within the last 5 mins of auction end time, the end time is extended by 1 hour.
+     * This will be configurable in the SaaS solution.
+     * NodeJS uses 'redis' module to work with Redis Cloud. The redis client is created using the Redis credentials and hmset() equivalent of HMSET command is used to push data to Redis database.
    * ProfileSettings
-         * type - string
-         * JSON data which includes keys - - serves as value 
-         * NodeJS connects to Redis Cloud database. Frontend communicates with NodeJS backend through API calls.
-         * POST : /api/settings
-         * request body has JSON data to be inserted to database.
-         * NodeJS uses 'redis' module to work with Redis Cloud. The redis client is created using the Redis credentials and set() equivalent of SET command is used to push data to Redis database.
+     * type - string
+     * JSON data which includes keys - - serves as value 
+     * NodeJS connects to Redis Cloud database. Frontend communicates with NodeJS backend through API calls.
+     * POST : /api/settings
+     * request body has JSON data to be inserted to database.
+     * NodeJS uses 'redis' module to work with Redis Cloud. The redis client is created using the Redis credentials and set() equivalent of SET command is used to push data to Redis database.
    * Users
-         * type - Redis Hash
-         * used for storing user details
-         * NodeJS connects to Redis Cloud database. Frontend communicates with NodeJS backend through API calls.
-         * POST : /api/users
-         * request body has JSON data to be inserted to database.
-         * email id serves as the key
-         * JSON data which includes keys -- serves as value
-         * NodeJS uses 'redis' module to work with Redis Cloud. The redis client is created using the Redis credentials and hmset() equivalent of HMSET command is used to push data to Redis database. 
+     * type - Redis Hash
+     * used for storing user details
+     * NodeJS connects to Redis Cloud database. Frontend communicates with NodeJS backend through API calls.
+     * POST : /api/users
+     * request body has JSON data to be inserted to database.
+     * email id serves as the key
+     * JSON data which includes keys -- serves as value
+     * NodeJS uses 'redis' module to work with Redis Cloud. The redis client is created using the Redis credentials and hmset() equivalent of HMSET command is used to push data to Redis database. 
 ### How the data is accessed
   * All auctions
-        * NodeJS connects to Redis Cloud database. Frontend communicates with NodeJS backend through API calls.
-        * GET : /api/auctions fetches all the keys from Auctions Hash
-        * NodeJS uses 'redis' module to work with Redis Cloud. The redis client is created using the Redis credentials and hmget() equivalent of HMGET command is used to get data from Redis database.
+      * NodeJS connects to Redis Cloud database. Frontend communicates with NodeJS backend through API calls.
+      * GET : /api/auctions fetches all the keys from Auctions Hash
+      * NodeJS uses 'redis' module to work with Redis Cloud. The redis client is created using the Redis credentials and hmget() equivalent of HMGET command is used to get data from Redis database.
   * Each auction
-        * GET : /api/auctions/{auctionId} fetches each auction item by id
-        * NodeJS uses 'redis' module to work with Redis Cloud. The redis client is created using the Redis credentials and hmget() equivalent of HMGET command is used to get data from Redis database.
+      * GET : /api/auctions/{auctionId} fetches each auction item by id
+      * NodeJS uses 'redis' module to work with Redis Cloud. The redis client is created using the Redis credentials and hmget() equivalent of HMGET command is used to get data from Redis database.
   * All bidding data of an auction item
-        * GET : /api/bidding/{auctionId}
-        * NodeJS uses 'redis' module to work with Redis Cloud. The redis client is created using the Redis credentials and hmget() equivalent of HMGET command is used to get data from Redis database.
+      * GET : /api/bidding/{auctionId}
+      * NodeJS uses 'redis' module to work with Redis Cloud. The redis client is created using the Redis credentials and hmget() equivalent of HMGET command is used to get data from Redis database.
   * Profile settings
-        * GET : /api/settings
-        * NodeJS uses 'redis' module to work with Redis Cloud. The redis client is created using the Redis credentials and get() equivalent of GET command is used to get data from Redis database.
+      * GET : /api/settings
+      * NodeJS uses 'redis' module to work with Redis Cloud. The redis client is created using the Redis credentials and get() equivalent of GET command is used to get data from Redis database.
   * User info
-        * GET : /api/users/{email}
-        * NodeJS uses 'redis' module to work with Redis Cloud. The redis client is created using the Redis credentials and hmget() equivalent of HMGET command is used to get data from Redis database.
+      * GET : /api/users/{email}
+      * NodeJS uses 'redis' module to work with Redis Cloud. The redis client is created using the Redis credentials and hmget() equivalent of HMGET command is used to get data from Redis database.
 
 ## Installation
 Installation steps:
