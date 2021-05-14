@@ -25,6 +25,27 @@ Setup Auction by category with slots i.e by specifying a start and end time. Dyn
 * Node JS(Back End)
 * Hosted details: https://main.d2xbwawdc9i1z6.amplifyapp.com/
 
+## How it Works
+### How the data is stored
+* We have used redis database to store the details
+   * The auction item data is stored in various keys and various data types.
+   * sample data as follows, each item will be having a reference to the auction.
+   * auctionItemName: Name of the item
+   * description: description of the item
+   * lotNo: Lot number
+   * quantity: no of items quantity
+   * buyersPremium: Premium placed by the buyer
+   * itemUnit: 
+   * minBidAmount: minimum bidding amount
+   * currentBid: current bidding amount
+   * bidIncrement: Next increment value for bidding
+   * startDateTime: Datetime on which the auction begins
+   * sellerName: name of the seller
+   * sellerEmail: email of the seller
+   * sellerPhone: Phone number of the seller
+   * sellerAddress: Address of the seller
+   * images: array of images related to the item
+   * auctionId: reference to auction
 
 ## Installation
 Installation steps:
