@@ -118,3 +118,17 @@ Installation steps:
 ## App Details
 * Demo Link:[Digital Auction App](https://main.d2xbwawdc9i1z6.amplifyapp.com/)
 * Screenshots <br>
+  * Home page
+    ![Screenshot](https://github.com/parthiban62/NR-digital-auction-backend/blob/main/screenshots/HomePage.png)
+  * SignUp
+    ![Screenshot](https://github.com/parthiban62/NR-digital-auction-backend/blob/main/screenshots/Signup.png)
+  * SignIn
+    ![Screenshot](https://github.com/parthiban62/NR-digital-auction-backend/blob/main/screenshots/SignIn.png)
+  * Dashboard
+    ![Screenshot](https://github.com/parthiban62/NR-digital-auction-backend/blob/main/screenshots/Dashboard.png)
+  * Auction Items
+    ![Screenshot](https://github.com/parthiban62/NR-digital-auction-backend/blob/main/screenshots/AuctionItems.png)
+  * Bidding Page
+    ![Screenshot](https://github.com/parthiban62/NR-digital-auction-backend/blob/main/screenshots/ItemBiddingPage.png)
+  * Bidding Realtime Updates
+    ![Screenshot](https://github.com/parthiban62/NR-digital-auction-backend/blob/main/screenshots/BiddingRealTimeUpdate.png)
