@@ -10,7 +10,7 @@
     "hosted_url": "https://main.d2xbwawdc9i1z6.amplifyapp.com/",
     "quick_deploy": "false",
     "deploy_buttons": [],
-    "language": ["NodeJS", "Socket.IO", "Amazon SNS/Amzon SES"],
+    "language": ["Javascript"],
     "redis_commands": [
         "CLIENT ID",
         "CLIENT INFO",
